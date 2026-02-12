@@ -1,0 +1,28 @@
+apply plugin: 'java'
+// Note: 'maven' plugin is deprecated in newer Gradle versions, but kept if you are on an older version
+apply plugin: 'maven' 
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+description = """2023MaventoGradle"""
+
+sourceCompatibility = 1.8 // Updated to 1.8 to match your successful Maven build
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral() // Shorthand for the Maven Central repository
+}
+
+dependencies {
+    // Using testImplementation (modern) or testCompile (older Gradle)
+    testImplementation 'junit:junit:4.13.2' 
+}
+
+// Move the jar block OUTSIDE of dependencies
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.example.App'
+        )
+    }
+}
