@@ -1,24 +1,30 @@
-apply plugin: 'java'
-// Note: 'maven' plugin is deprecated in newer Gradle versions, but kept if you are on an older version
-apply plugin: 'maven' 
+plugins {
+    id 'java'
+    id 'maven-publish' // Replaces the deprecated 'maven' plugin
+    id 'application'   // Necessary for the 'gradle run' command in your Jenkinsfile
+}
 
 group = 'com.example'
 version = '1.0-SNAPSHOT'
-description = """2023MaventoGradle"""
+description = "2023MaventoGradle"
 
-sourceCompatibility = 1.8 // Updated to 1.8 to match your successful Maven build
-targetCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+application {
+    mainClass = 'com.example.App' // Tells 'gradle run' which class to start
+}
 
 repositories {
-    mavenCentral() // Shorthand for the Maven Central repository
+    mavenCentral()
 }
 
 dependencies {
-    // Using testImplementation (modern) or testCompile (older Gradle)
-    testImplementation 'junit:junit:4.13.2' 
+    testImplementation 'junit:junit:4.13.2'
 }
 
-// Move the jar block OUTSIDE of dependencies
 jar {
     manifest {
         attributes(
